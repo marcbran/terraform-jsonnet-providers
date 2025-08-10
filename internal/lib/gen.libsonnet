@@ -285,7 +285,7 @@ local resourceBlock(provider, type, name, resource) =
               j.String(attributeName),
               j.Apply(j.Member(j.Var('build'), 'template'), [
                 if std.get(attribute, 'required', false)
-                then j.Member(j.Var('block'), attributeName)
+                then j.Index(j.Var('block'), j.String(attributeName))
                 else j.Std.get(j.Var('block'), j.String(attributeName)).default(j.Null),
               ])
             ),
@@ -345,7 +345,7 @@ local providerConfiguration(provider) =
               j.String(attributeName),
               j.Apply(j.Member(j.Var('build'), 'template'), [
                 if std.get(attribute, 'required', false)
-                then j.Member(j.Var('block'), attributeName)
+                then j.Index(j.Var('block'), j.String(attributeName))
                 else j.Std.get(j.Var('block'), j.String(attributeName)).default(j.Null),
               ])
             ),
