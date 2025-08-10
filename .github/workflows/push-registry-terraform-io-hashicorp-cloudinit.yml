@@ -1,6 +1,5 @@
 "jobs":
   "push":
-    "if": "github.ref == 'refs/heads/master'"
     "name": "Push"
     "runs-on": "ubuntu-latest"
     "steps":

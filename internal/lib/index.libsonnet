@@ -89,7 +89,6 @@ local directory(providers) = {
           push: {
             name: 'Push',
             'runs-on': 'ubuntu-latest',
-            'if': "github.ref == 'refs/heads/master'",
             'timeout-minutes': 5,
             steps: [
               uses('actions/checkout'),
