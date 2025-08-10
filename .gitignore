@@ -1,0 +1,8 @@
+.idea
+.DS_Store
+.terraform
+.terraform.lock.hcl
+provider.json
+gen
+*.libsonnet
+build

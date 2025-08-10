@@ -1,1 +1,1 @@
-# terrason-providers
+# terraform-jsonnet-providers
