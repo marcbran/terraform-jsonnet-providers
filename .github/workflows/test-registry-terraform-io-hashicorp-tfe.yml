@@ -20,6 +20,7 @@
 "on":
   "pull_request":
     "paths":
+    - "internal"
     - "providers/registry.terraform.io/hashicorp/tfe/**"
   "workflow_dispatch": {}
 "permissions":

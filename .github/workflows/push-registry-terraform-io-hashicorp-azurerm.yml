@@ -28,6 +28,7 @@
     "branches":
     - "main"
     "paths":
+    - "internal"
     - "providers/registry.terraform.io/hashicorp/azurerm/**"
 "permissions":
   "contents": "read"

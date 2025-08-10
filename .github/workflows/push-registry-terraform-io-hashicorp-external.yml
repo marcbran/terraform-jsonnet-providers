@@ -28,6 +28,7 @@
     "branches":
     - "main"
     "paths":
+    - "internal"
     - "providers/registry.terraform.io/hashicorp/external/**"
 "permissions":
   "contents": "read"

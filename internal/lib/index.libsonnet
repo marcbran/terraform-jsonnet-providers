@@ -36,7 +36,7 @@ local directory(providers) = {
         name: 'Test %(source)s' % provider,
         on: {
           pull_request: {
-            paths: ['providers/%(source)s/**' % provider],
+            paths: ['internal', 'providers/%(source)s/**' % provider],
           },
           workflow_dispatch: {},
         },
@@ -78,7 +78,7 @@ local directory(providers) = {
         on: {
           push: {
             branches: ['main'],
-            paths: ['providers/%(source)s/**' % provider],
+            paths: ['internal', 'providers/%(source)s/**' % provider],
           },
         },
         permissions: {

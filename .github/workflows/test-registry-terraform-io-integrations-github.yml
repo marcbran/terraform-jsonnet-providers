@@ -20,6 +20,7 @@
 "on":
   "pull_request":
     "paths":
+    - "internal"
     - "providers/registry.terraform.io/integrations/github/**"
   "workflow_dispatch": {}
 "permissions":
