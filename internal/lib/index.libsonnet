@@ -76,6 +76,7 @@ local directory(providers) = {
       ['push-%s.yml' % std.strReplace(std.strReplace(provider.source, '/', '-'), '.', '-')]: std.manifestYamlDoc({
         name: 'Push %(source)s' % provider,
         on: {
+          workflow_dispatch: {},
           push: {
             branches: ['main'],
             paths: ['internal', 'providers/%(source)s/**' % provider],
@@ -88,6 +89,7 @@ local directory(providers) = {
           push: {
             name: 'Push',
             'runs-on': 'ubuntu-latest',
+            'if': "github.ref == 'refs/heads/master'",
             'timeout-minutes': 5,
             steps: [
               uses('actions/checkout'),

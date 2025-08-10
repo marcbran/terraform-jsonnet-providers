@@ -1,5 +1,6 @@
 "jobs":
   "push":
+    "if": "github.ref == 'refs/heads/master'"
     "name": "Push"
     "runs-on": "ubuntu-latest"
     "steps":
@@ -30,5 +31,6 @@
     "paths":
     - "internal"
     - "providers/registry.terraform.io/hashicorp/local/**"
+  "workflow_dispatch": {}
 "permissions":
   "contents": "read"
