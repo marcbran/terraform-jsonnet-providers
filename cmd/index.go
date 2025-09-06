@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/marcbran/terrason-providers/internal"
+	"github.com/marcbran/terraform-jsonnet-providers/internal"
 	"github.com/spf13/cobra"
 )
 

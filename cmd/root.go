@@ -7,7 +7,7 @@ import (
 )
 
 var Cmd = &cobra.Command{
-	Use:   "terrason-providers",
+	Use:   "terraform-jsonnet-providers",
 	Short: "",
 	Long:  ``,
 

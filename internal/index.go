@@ -3,9 +3,10 @@ package internal
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/marcbran/jpoet/pkg/jpoet"
 	"github.com/marcbran/jsonnet-plugin-jsonnet/jsonnet"
-	"github.com/marcbran/terrason-providers/internal/lib/imports"
+	"github.com/marcbran/terraform-jsonnet-providers/internal/lib/imports"
 )
 
 func Index(ctx context.Context, dir string) error {

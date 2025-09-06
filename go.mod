@@ -1,4 +1,4 @@
-module github.com/marcbran/terrason-providers
+module github.com/marcbran/terraform-jsonnet-providers
 
 go 1.24.4
 

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/marcbran/terrason-providers/cmd"
+	"github.com/marcbran/terraform-jsonnet-providers/cmd"
 )
 
 func main() {
