@@ -8,7 +8,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/marcbran/jpoet v0.14.4
 	github.com/marcbran/jsonnet-plugin-jsonnet v0.2.1
-	github.com/spf13/cobra v1.9.1
+	github.com/spf13/cobra v1.10.1
 )
 
 require (
@@ -27,7 +27,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/oklog/run v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
-	github.com/spf13/pflag v1.0.7 // indirect
+	github.com/spf13/pflag v1.0.9 // indirect
 	github.com/zclconf/go-cty v1.16.3 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	golang.org/x/crypto v0.40.0 // indirect
