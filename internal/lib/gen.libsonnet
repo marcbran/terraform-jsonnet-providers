@@ -226,7 +226,7 @@ local providerTemplate = j.LocalFunctionBind('providerTemplate', [j.Parameter('p
         j.Field('block', j.Object([
           j.Field(j.Var('blockType'), j.Object([
             j.Field(j.Var('type'), j.Object([
-              j.Field(j.Var('name'), j.Std.prune(j.Add(j.Add(j.Member(j.Member(j.Var('providerConfiguration'), '_'), 'refBlock'), j.Var('metaBlock')), j.Var('block')))),
+              j.Field(j.Var('name'), j.Add(j.Add(j.Member(j.Member(j.Var('providerConfiguration'), '_'), 'refBlock'), j.Var('metaBlock')), j.Var('block'))),
             ]).closeFodder(j.Fodder.LineEnd())),
           ]).closeFodder(j.Fodder.LineEnd())),
         ]).closeFodder(j.Fodder.LineEnd())),
@@ -267,6 +267,77 @@ local providerTemplate = j.LocalFunctionBind('providerTemplate', [j.Parameter('p
   ]).closeFodder(j.Fodder.LineEnd())),
 ]).closeFodder(j.Fodder.LineEnd()));
 
+local attribute = j.LocalFunctionBind(
+  'attribute',
+  [j.Parameter('block'), j.Parameter('name'), j.Parameter('required', j.False)],
+  j.If(
+    j.And(j.Not(j.Var('required')), j.Not(j.Std.objectHas(j.Var('block'), j.Var('name')))),
+    j.Object(),
+    j.Object([
+      j.Field(
+        j.Var('name'),
+        j.Apply(j.Member(j.Var('build'), 'template'), [j.Index(j.Var('block'), j.Var('name'))])
+      ),
+    ]).closeFodder(j.Fodder.LineEnd())
+  )
+);
+
+local blockObj = j.LocalFunctionBind(
+  'blockObj',
+  [j.Parameter('block'), j.Parameter('name'), j.Parameter('body'), j.Parameter('nestingMode'), j.Parameter('required', j.False)],
+  j.If(
+    j.And(j.Not(j.Var('required')), j.Not(j.Std.objectHas(j.Var('block'), j.Var('name')))),
+    j.Object(),
+    j.Object([
+      j.Field(
+        j.Var('name'),
+        j.If(
+          j.Eq(j.Var('nestingMode'), j.String('list')),
+          j.ArrayComp(
+            j.Apply(j.Var('body'), [j.Var('block')]),
+            [j.ForSpec('block', j.Index(j.Var('block'), j.Var('name')))]
+          ),
+          j.Apply(j.Var('body'), [j.Index(j.Var('block'), j.Var('name'))])
+        ),
+      ),
+    ]).closeFodder(j.Fodder.LineEnd())
+  )
+);
+
+local blockBlock(block) =
+  local attributes = std.get(block, 'attributes', {});
+  local blockTypes = std.get(block, 'block_types', {});
+  local attributeObject = std.foldl(
+    function(acc, kv)
+      local apply = j.Apply(
+        j.Var('attribute').fodder(j.Fodder.LineEnd()),
+        std.prune([
+          j.Var('block'),
+          j.String(kv.key),
+          if std.get(kv.value, 'required', false) then j.True else null,
+        ])
+      );
+      if acc == null then apply else j.Add(acc, apply),
+    std.objectKeysValues(attributes),
+    null
+  );
+  std.foldl(
+    function(acc, kv)
+      local apply = j.Apply(
+        j.Var('blockObj').fodder(j.Fodder.LineEnd()),
+        std.prune([
+          j.Var('block'),
+          j.String(kv.key),
+          j.Function([j.Parameter('block')], blockBlock(kv.value.block)),
+          j.String(kv.value.nesting_mode),
+          if std.get(kv.value, 'required', false) then j.True else null,
+        ])
+      );
+      if acc == null then apply else j.Add(acc, apply),
+    std.objectKeysValues(blockTypes),
+    attributeObject
+  );
+
 local resourceBlock(provider, type, name, resource) =
   local attributes = std.get(resource.block, 'attributes', {});
   j.FieldFunction(
@@ -275,23 +346,8 @@ local resourceBlock(provider, type, name, resource) =
     j.Object([
       j.FieldLocal('resource', j.Apply(j.Member(j.Var('blockType'), 'resource'), [j.String(name), j.Var('name')])),
       j.Field(j.String('_'), j.Apply(j.Member(j.Var('resource'), '_'), [
-        j.Var('block'),
-        j.Object(std.flattenArrays([
-          local attribute = attributes[attributeName];
-          // TODO there are some providers with schemas where the computed property is actually required in resources
-          //          if std.get(attribute, 'computed', false) then [] else
-          [
-            j.Field(
-              j.String(attributeName),
-              j.Apply(j.Member(j.Var('build'), 'template'), [
-                if std.get(attribute, 'required', false)
-                then j.Index(j.Var('block'), j.String(attributeName))
-                else j.Std.get(j.Var('block'), j.String(attributeName)).default(j.Null),
-              ])
-            ),
-          ]
-          for attributeName in std.objectFields(attributes)
-        ])).closeFodder(j.Fodder.LineEnd()),
+        j.Var('block').fodder(j.Fodder.LineEnd()),
+        blockBlock(resource.block),
       ])),
     ] + [
       j.Field(j.String(attributeName), j.Apply(j.Member(j.Var('resource'), 'field'), [j.Member(j.Member(j.Self, '_'), 'blocks'), j.String(attributeName)]))
@@ -313,11 +369,11 @@ local functionBlock(name, Function) =
   j.FieldFunction(
     j.String(name),
     [j.Parameter(parameter.name) for parameter in parameters],
-    j.Apply(j.Member(j.Var('provider'), 'Function'), [j.String(name), j.Array([j.Var(parameter.name) for parameter in parameters])]),
+    j.Apply(j.Member(j.Var('provider'), 'func'), [j.String(name), j.Array([j.Var(parameter.name) for parameter in parameters])]),
   );
 
 local functionBlocks(functions) = if std.length(std.objectFields(functions)) == 0 then [] else [
-  j.Field(j.String('Function'), j.Object([
+  j.Field(j.String('func'), j.Object([
     functionBlock(name, functions[name])
     for name in std.objectFields(functions)
   ]).closeFodder(j.Fodder.LineEnd())),
@@ -361,6 +417,8 @@ local terraformProvider(provider) =
     [
       build,
       providerTemplate,
+      attribute,
+      blockObj,
       j.LocalFunctionBind('provider', [j.Parameter('rawConfiguration'), j.Parameter('configuration')], j.Object(
         [
           providerRequirements(provider.source, provider.version),
