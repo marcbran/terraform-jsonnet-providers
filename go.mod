@@ -7,7 +7,7 @@ toolchain go1.24.5
 require (
 	github.com/hashicorp/hcl/v2 v2.24.0
 	github.com/marcbran/jpoet v0.14.5
-	github.com/marcbran/jsonnet-plugin-jsonnet v0.2.1
+	github.com/marcbran/jsonnet-plugin-jsonnet v0.3.0
 	github.com/spf13/cobra v1.10.1
 )
 
@@ -21,12 +21,11 @@ require (
 	github.com/hashicorp/go-plugin v1.7.0 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
-	github.com/kr/pretty v0.3.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/oklog/run v1.1.0 // indirect
-	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/spf13/pflag v1.0.9 // indirect
 	github.com/zclconf/go-cty v1.16.3 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
@@ -40,6 +39,5 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
 	google.golang.org/grpc v1.75.0 // indirect
 	google.golang.org/protobuf v1.36.8 // indirect
-	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	sigs.k8s.io/yaml v1.5.0 // indirect
 )
