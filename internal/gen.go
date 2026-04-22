@@ -20,16 +20,16 @@ func Gen(context context.Context, dir string) error {
 		return err
 	}
 
-	err = jpoet.NewEval().
-		FileImport([]string{}).
-		FSImport(lib).
-		FSImport(imports.Fs).
-		Plugin(jsonnet.Plugin()).
-		TLACode("provider", string(b)).
-		FileInput("./lib/gen.libsonnet").
-		Serialize(false).
-		DirectoryOutput(dir).
-		Eval()
+	err = jpoet.Eval(
+		jpoet.FileImport([]string{}),
+		jpoet.FSImport(lib),
+		jpoet.FSImport(imports.Fs),
+		jpoet.WithPlugin(jsonnet.Plugin()),
+		jpoet.TLACode("provider", string(b)),
+		jpoet.FileInput("./lib/gen.libsonnet"),
+		jpoet.Serialize(false),
+		jpoet.DirectoryOutput(dir),
+	)
 	if err != nil {
 		return err
 	}

@@ -20,16 +20,16 @@ func Index(ctx context.Context, dir string) error {
 		return err
 	}
 
-	err = jpoet.NewEval().
-		FileImport([]string{dir}).
-		FSImport(lib).
-		FSImport(imports.Fs).
-		Plugin(jsonnet.Plugin()).
-		TLACode("providers", string(b)).
-		FileInput("./lib/index.libsonnet").
-		Serialize(false).
-		DirectoryOutput(dir).
-		Eval()
+	err = jpoet.Eval(
+		jpoet.FileImport([]string{dir}),
+		jpoet.FSImport(lib),
+		jpoet.FSImport(imports.Fs),
+		jpoet.WithPlugin(jsonnet.Plugin()),
+		jpoet.TLACode("providers", string(b)),
+		jpoet.FileInput("./lib/index.libsonnet"),
+		jpoet.Serialize(false),
+		jpoet.DirectoryOutput(dir),
+	)
 	if err != nil {
 		return err
 	}
