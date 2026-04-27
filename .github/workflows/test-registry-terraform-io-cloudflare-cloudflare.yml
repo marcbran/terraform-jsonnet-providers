@@ -1,0 +1,27 @@
+"jobs":
+  "test":
+    "name": "Test"
+    "runs-on": "ubuntu-latest"
+    "steps":
+    - "uses": "actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+    - "uses": "hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85"
+    - "uses": "extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3"
+    - "uses": "actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c"
+      "with":
+        "cache": true
+        "go-version-file": "go.mod"
+    - "uses": "jaxxstorm/action-install-gh-release@25e24d2d23ae098373794ef1d6faecb48ee52da8"
+      "with":
+        "repo": "marcbran/jpoet"
+    - "name": "Run tests"
+      "run": "just gen-provider ./providers/registry.terraform.io/cloudflare/cloudflare"
+    "timeout-minutes": 5
+"name": "Test registry.terraform.io/cloudflare/cloudflare"
+"on":
+  "pull_request":
+    "paths":
+    - "internal"
+    - "providers/registry.terraform.io/cloudflare/cloudflare/**"
+  "workflow_dispatch": {}
+"permissions":
+  "contents": "read"

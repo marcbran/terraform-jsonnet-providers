@@ -15,6 +15,10 @@
   "package-ecosystem": "terraform"
   "schedule":
     "interval": "daily"
+- "directory": "/providers/registry.terraform.io/cloudflare/cloudflare"
+  "package-ecosystem": "terraform"
+  "schedule":
+    "interval": "daily"
 - "directory": "/providers/registry.terraform.io/goauthentik/authentik"
   "package-ecosystem": "terraform"
   "schedule":
