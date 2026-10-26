@@ -1,10 +1,10 @@
 module github.com/marcbran/terraform-jsonnet-providers
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/hashicorp/hcl/v2 v2.25.0
-	github.com/marcbran/jpoet v0.25.0
+	github.com/marcbran/jpoet v0.26.0
 	github.com/marcbran/jsonnet-plugin-jsonnet v0.4.0
 	github.com/spf13/cobra v1.10.2
 )
@@ -27,7 +27,7 @@ require (
 	github.com/spf13/pflag v1.0.10 // indirect
 	github.com/zclconf/go-cty v1.19.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
-	golang.org/x/crypto v0.55.0 // indirect
+	golang.org/x/crypto v0.56.0 // indirect
 	golang.org/x/mod v0.38.0 // indirect
 	golang.org/x/net v0.58.0 // indirect
 	golang.org/x/sync v0.22.0 // indirect
