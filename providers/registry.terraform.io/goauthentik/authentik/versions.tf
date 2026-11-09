@@ -2,7 +2,7 @@ terraform {
   required_providers {
     datadog = {
       source  = "registry.terraform.io/goauthentik/authentik"
-      version = "2026.8.0"
+      version = "2026.8.2"
     }
   }
 }
