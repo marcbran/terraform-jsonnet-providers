@@ -4,7 +4,7 @@ go 1.26.0
 
 require (
 	github.com/hashicorp/hcl/v2 v2.25.0
-	github.com/marcbran/jpoet v0.28.0
+	github.com/marcbran/jpoet v0.30.0
 	github.com/marcbran/jsonnet-plugin-jsonnet v0.4.0
 	github.com/spf13/cobra v1.10.2
 )
@@ -30,7 +30,7 @@ require (
 	golang.org/x/crypto v0.57.0 // indirect
 	golang.org/x/mod v0.41.0 // indirect
 	golang.org/x/net v0.60.0 // indirect
-	golang.org/x/sync v0.23.0 // indirect
+	golang.org/x/sync v0.24.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
 	golang.org/x/tools v0.49.0 // indirect
